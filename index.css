@@ -1,0 +1,29 @@
+.btn-primary{
+
+    background-color: blanchedalmond;
+    border-color:darkgray;
+    color: black;
+
+}   
+
+.btn:hover{
+    background-color: burlywood;
+    border-color:darkgray;
+
+}
+table {
+  border-collapse: collapse;
+}
+
+table, td, th {
+ border: 1px solid black;
+ border-color: darkgray;
+}
+
+h1{
+    color: darkslategrey;
+}
+
+body{
+    background-color: azure;
+}
