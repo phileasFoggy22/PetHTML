@@ -170,7 +170,7 @@ function getPets(id) {
         var td1 = document.createElement('td');
         var td5 = document.createElement('td');
         td1.innerHTML = ("Name");
-        td1.innerHTML = ("List Visits");
+        td5.innerHTML = ("List Visits");
 
 
 
@@ -180,7 +180,7 @@ function getPets(id) {
 
         node.append(tr);
 
-        for (var i = 0; i < newobj1.length; i++) {
+        for (var i = 0; i < newobj1.length + 1; i++) {
             var tr = document.createElement('tr');
             var td1 = document.createElement('td');
             var td5 = document.createElement('td');
@@ -190,10 +190,10 @@ function getPets(id) {
             btn.className = "btn";
             btn.type = "button";
             btn.value = "List Pets";
-            let id = newobj1[i]["id"];
+            let petid = newobj1[i]["id"];
             btn.onclick = (function () {
                 return function () {
-                    getVisits(id);
+                    getVisits(petid);
                 }
             })(newobj1[i]["id"]);
             td5.appendChild(btn);
@@ -219,4 +219,91 @@ function getPets(id) {
 
 function getVisits(id) {
     console.log(id);
+}
+
+
+
+
+function makeRequest(method, url) {
+    return new Promise((res, rej) => {
+        const req = new XMLHttpRequest();
+        req.onload = () => {
+            if (req.status == 200) {
+                res(req);
+            } else {
+                const reason = new Error("It Failed!");
+                rej(reason);
+            }
+        };
+        req.open(method, url);
+        req.send();
+
+    });
+
+
+}
+
+function getAllOwners() {
+    let req = new XMLHttpRequest();
+    req.onload = function () {
+        console.log(req.responseText);
+
+    };
+    req.open("GET", "http://localhost:9966/petclinic/api/owners");
+    req.send();
+}
+
+function getAllVisits() {
+    let req = new XMLHttpRequest();
+    req.onload = function () {
+        console.log(req.responseText);
+
+    };
+    req.open("GET", "http://localhost:9966/petclinic/api/visits");
+    req.send();
+}
+
+function getAllPets() {
+    let req = new XMLHttpRequest();
+    req.onload = function () {
+        console.log(req.responseText);
+
+    };
+    req.open("GET", "http://localhost:9966/petclinic/api/pets");
+    req.send();
+}
+
+
+
+function removeOwner() {
+    let x = document.getElementById("idinput").value;
+    makeRequest("DELETE", "http://localhost:9966/petclinic/api/owners/" + x).then(req => {
+        let something = document.createElement("p");
+        something.innerText = req.responseText;
+        document.getElementById("display").appendChild(something);
+    }).catch(reason => {
+        console.log(reason);
+    });
+}
+
+function removeVisit() {
+    let x = document.getElementById("idinput").value;
+    makeRequest("DELETE", "http://localhost:9966/petclinic/api/visits/" + x).then(req => {
+        let something = document.createElement("p");
+        something.innerText = req.responseText;
+        document.getElementById("display").appendChild(something);
+    }).catch(reason => {
+        console.log(reason);
+    });
+}
+
+function removePet() {
+    let x = document.getElementById("idinput").value;
+    makeRequest("DELETE", "http://localhost:9966/petclinic/api/pets/" + x).then(req => {
+        let something = document.createElement("p");
+        something.innerText = req.responseText;
+        document.getElementById("display").appendChild(something);
+    }).catch(reason => {
+        console.log(reason);
+    });
 }
