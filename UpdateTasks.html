@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Test HTML</title>
+
+    <!-- Bootstrap CSS File -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script type="text/javascript" src="APIjavastuff.js"></script>
+</head>
+
+<body>
+
+    First name: <input type="text" id="fname"><br>
+    Last name: <input type="text" id="lname"><br>
+    Account number: <input type="text" id="aname"><br>
+    Update ID: <input type="text" id="accID"><br>
+    <button onclick=updateAccount()>Update</button>
+
+    <button onclick=createAccount()>Create</button>
+    <button onclick=deleteAccount()>Delete</button>
+
+
+    <p id="showStuff"></p>
+    <p id="showMoreStuff"></p>
+    <p id="showEvenMoreStuff"></p>
+    <div id="showLastStuff"></div>
+
+    <button onclick=getAccounts()>refresh accounts
+    </button>
+</body>
