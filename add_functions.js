@@ -19,6 +19,7 @@ function makeRequest(method, url, body) {
             }
         }
         req.open(method, url);
+        req.setRequestHeader('Content-Type', 'application/json');
         req.send(body);
     });
     
@@ -33,10 +34,10 @@ const addOwner = () => {
         telephone: document.getElementById("telephone").value,
         firstName: document.getElementById("firstName").value,
         lastName: document.getElementById("lastName").value,
-        pets: "[]"
+        id: document.getElementById("owner_id").value,
     }
 
-    makeRequest("POST", `http://localhost:9966/petclinic/api/owners`, JSON.stringify(newOwner))
+    makeRequest("POST", "http://localhost:9966/petclinic/api/owners", JSON.stringify(newOwner))
         .then((resolve) => {
             console.log(resolve);
         })
