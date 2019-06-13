@@ -18,3 +18,13 @@ karishma - start building html pages
 Phil - list what buttons will do on click, fields required
 Jun - set up Trello board, prioritise tasks
 Owen & Nick - work through swagger-ui to pick out methods needed
+
+
+10:50
+
+Karishma - product owener meeting with Matt
+Phil - working out required button functions
+Owen - working on create javascript functions
+Nick - working on get javascript functions
+Jun- working on delete javascript functions
+
