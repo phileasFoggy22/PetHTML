@@ -61,7 +61,7 @@ function getVets() {
 
     }
 
-    req.open("GET", "http://localhost:9966/petclinic/api/vets");
+    req.open("GET", "http://localhost:8080/spring-petclinic-1.5.2/api/vets");
     req.send();
 
 
@@ -159,7 +159,7 @@ function getOwners() {
 
     }
 
-    req.open("GET", "http://localhost:9966/petclinic/api/owners");
+    req.open("GET", "http://localhost:8080/spring-petclinic-1.5.2/api/owners");
     req.send();
 
 
@@ -252,7 +252,7 @@ function getPets(id) {
 
     }
 
-    req.open("GET", "http://localhost:9966/petclinic/api/owners/" + String(id));
+    req.open("GET", "http://localhost:8080/spring-petclinic-1.5.2/api/owners/" + String(id));
     req.send();
 
 
@@ -260,6 +260,85 @@ function getPets(id) {
 
 function getVisits(id) {
     console.log(id);
+
+
+    let req = new XMLHttpRequest();
+    document.getElementById("PetsTable").innerHTML = "";
+    req.onload = function () {
+        document.getElementById("showStuff").innerHTML = req.responseText;
+        document.getElementById("showLastStuff").innerHTML = "";
+        var newobj2 = JSON.parse(req.responseText);
+
+        var newobj1 = newobj2["pets"];
+
+        var node = document.createElement("TABLE");
+
+        var tr = document.createElement('tr');
+        var td1 = document.createElement('td');
+        td1.innerHTML = ("Name");
+        var td2 = document.createElement('td');
+        td2.innerHTML = ("Birthdate");
+        var td3 = document.createElement('td');
+        td3.innerHTML = ("Type");
+        var td4 = document.createElement('td');
+        td4.innerHTML = ("List Visits");
+
+
+
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        tr.appendChild(td4);
+
+        node.append(tr);
+
+        for (var i = 0; i < newobj1.length; i++) {
+            console.log("here", newobj1[i]["type"]["name"]);
+            let field = "";
+            var tr = document.createElement('tr');
+            var td1 = document.createElement('td');
+            field = newobj1[i]["name"];
+            td1.innerHTML = field;
+            var td2 = document.createElement('td');
+            field = newobj1[i]["birthdate"];
+            td2.innerHTML = field;
+            //            td2.innerHTML = newobj1[i]["birthdate"];
+            var td3 = document.createElement('td');
+            field = newobj1[i]["type"]["name"];
+            td3.innerHTML = field;
+            //            td3.innerHTML = newobj1[i]["type"];
+            var td5 = document.createElement('td');
+
+            var btn = document.createElement('input');
+            btn.className = "btn";
+            btn.type = "button";
+            btn.value = "List Visits";
+            let petid = newobj1[i]["id"];
+            btn.onclick = (function () {
+                return function () {
+                    getVisits(petid);
+                }
+            })(newobj1["id"]);
+            td5.appendChild(btn);
+
+
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td5);
+
+            node.append(tr);
+
+        }
+
+
+        document.getElementById("PetsTable").appendChild(node);
+
+    }
+
+    req.open("GET", "http://localhost:8080/spring-petclinic-1.5.2/api/owners/" + String(id));
+    req.send();
+
 }
 
 
@@ -324,7 +403,7 @@ function getAllPets() {
 
 
 function removeOwner(x) {
-    makeRequest("DELETE", `http://localhost:9966/petclinic/api/owners/${x}`).then(req => {
+    makeRequest("DELETE", `http://localhost:8080/spring-petclinic-1.5.2/api/owners/${x}`).then(req => {
         console.log("hi")
         //        let something = document.createElement("p");
         //        something.innerText = req.responseText;
@@ -332,6 +411,7 @@ function removeOwner(x) {
     }).catch(reason => {
         console.log(reason);
     });
+    getOwners();
 }
 
 function removeVisit() {
@@ -367,7 +447,7 @@ const addOwner = () => {
         id: document.getElementById("owner_id").value,
     }
 
-    makeRequest("POST", "http://localhost:9966/petclinic/api/owners", JSON.stringify(newOwner))
+    makeRequest("POST", "http://localhost:8080/spring-petclinic-1.5.2/api/owners", JSON.stringify(newOwner))
         .then((resolve) => {
             let data = JSON.parse(resolve);
             const container = document.getElementById('OwnersTable');
@@ -395,18 +475,13 @@ const addOwner = () => {
             let myPet = document.createElement('td');
             myPet.innerHTML = data.pets;
 
-            myRow.appendChild(myFirstName);
-            myRow.appendChild(myLastName);
-            myRow.appendChild(myAddress);
-            myRow.appendChild(myCity);
-            myRow.appendChild(myTelephone);
-            myRow.appendChild(myPet);
+
 
 
         })
         .catch(function (error) {
             console.log(error.message)
         });
-
+    getOwners();
     return false;
 }
