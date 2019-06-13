@@ -16,12 +16,12 @@ function getVets() {
         var td3 = document.createElement('td');
         td3.innerHTML = ("Specialities");
         var td4 = document.createElement('td');
-        td3.innerHTML = ("Show Clients");
+        td4.innerHTML = ("Show Clients");
 
         tr.appendChild(td1);
         tr.appendChild(td2);
         tr.appendChild(td3);
-        tr.appendChild(td4);
+
 
         node.append(tr);
 
@@ -44,7 +44,7 @@ function getVets() {
                     getClients(id);
                 }
             })(newobj1[i]["id"]);
-            td4.appendChild(btn);
+
 
 
             tr.appendChild(td1);
